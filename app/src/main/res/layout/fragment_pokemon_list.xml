@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.cubo.app.features.pokemonList.ui.PokemonListViewModel" />
+
+        <variable
+            name="recyclerController"
+            type="com.cubo.app.features.pokemonList.epoxy.PokemonEpoxyController" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/linearPokemon"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.cubo.app.presentation.views.ShimmerEpoxyRecyclerView
+            android:id="@+id/epoxyRecyclerPokemon"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/_3sdp"
+            android:clipToPadding="true"
+            app:verticalDirection="@{recyclerController}" />
+
+    </LinearLayout>
+</layout>
