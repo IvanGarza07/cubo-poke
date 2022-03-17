@@ -1,7 +1,6 @@
 package com.cubo.app.features.login
 
 import android.view.inputmethod.EditorInfo
-import androidx.activity.OnBackPressedCallback
 import com.cubo.app.BuildConfig
 import com.cubo.app.R
 import com.cubo.app.databinding.FragmentLoginBinding
@@ -36,6 +35,7 @@ class LoginFragment : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
             showLoginError(it)
         }
         requireActivity().initBackPressedToFinishHost(viewLifecycleOwner)
+        observerAppEvents()
     }
 
     override fun intUI() {
@@ -43,7 +43,6 @@ class LoginFragment : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
         initForm()
         initLoginButton()
         initEditTextPassword()
-        onBackPressed()
     }
 
     private fun observerAppEvents() {
@@ -90,17 +89,5 @@ class LoginFragment : BaseFragment<LoginViewModel, FragmentLoginBinding>() {
 
     private fun showLoginError(message: String) {
         binding.frameLayoutLogin.showSnackBar(message, true)
-    }
-
-    private fun onBackPressed() {
-        val onBackPressedCallback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                requireActivity().finish()
-            }
-        }
-        requireActivity().onBackPressedDispatcher.addCallback(
-            viewLifecycleOwner,
-            onBackPressedCallback
-        )
     }
 }

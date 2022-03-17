@@ -18,6 +18,9 @@ import com.cubo.app.data.server.pokemon.PokemonService
 import com.cubo.app.data.server.user.UserServer
 import com.cubo.app.data.server.user.UserService
 import com.cubo.app.di.repository.Repository
+import com.cubo.app.features.detail.DetailFragment
+import com.cubo.app.features.detail.DetailFragmentArgs
+import com.cubo.app.features.detail.DetailViewModel
 import com.cubo.app.features.login.LoginFragment
 import com.cubo.app.features.login.LoginViewModel
 import com.cubo.app.features.pokemonList.ui.PokemonListFragment
@@ -88,5 +91,16 @@ private val scopesModule = module {
                 baseEpoxyEventListener
             )
         }
+    }
+    scope<DetailFragment> {
+        viewModel { (args: DetailFragmentArgs) ->
+            DetailViewModel(
+                args,
+                get(),
+                get(),
+                get()
+            )
+        }
+        scoped { PokemonUseCases(get()) }
     }
 }

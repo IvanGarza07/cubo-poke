@@ -14,6 +14,10 @@
     <string name="login_error_message_1">Ingresa tu usuario y contraseña</string>
     <string name="login_error_message_2">Usuario y/o contraseña incorrecto</string>
 
+    <!-- DETAIL -->
+    <string name="detail_type_value">Tipo: %1$s</string>
+    <string name="detail_category_value">Categoria: %1$s</string>
+
     <!-- DIALOGS -->
     <string name="dialog_title">Sesion expirada</string>
     <string name="dialog_message">Tu sesion ha expirado! Inicia sesion nuevamente</string>

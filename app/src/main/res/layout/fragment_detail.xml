@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.cubo.app.features.detail.DetailViewModel" />
+
+        <variable
+            name="pokemon"
+            type="com.cubo.domain.Pokemon" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ProgressBar
+            android:id="@+id/progressBarPokemon"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_50sdp"
+            android:layout_centerInParent="true"/>
+
+        <LinearLayout
+            android:id="@+id/linearLayoutDetail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="@dimen/_20sdp"
+            android:visibility="gone"
+            tools:visibility="visible"
+            tools:context=".features.detail.DetailFragment">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="@dimen/_150sdp"
+                android:layout_height="@dimen/_150sdp"
+                app:placeholder="@{@drawable/ic_pokemon_place_holder}"
+                app:srcGlide="@{pokemon.image}" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:gravity="center"
+                android:text="@{pokemon.name}"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14ssp"
+                tools:text="Bulbasaur" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:gravity="center"
+                android:text="@{pokemon.description}"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12ssp"
+                tools:text="Este Pokémon nace con una semilla en el lomo, que brota con el paso del tiempo" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:gravity="center"
+                android:text="@{pokemon.type}"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12ssp"
+                tools:text="Tierra" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:gravity="center"
+                android:text="@{pokemon.category}"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12ssp"
+                tools:text="Semilla" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</layout>

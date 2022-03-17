@@ -18,4 +18,9 @@ class PokemonRepository(
         return pokemonDataSource.getPokemonList(pokemonListParams)
     }
 
+    suspend fun getPokemonDetail(pokemonId: String): ResponseCase {
+        val token = preferenceDataSource.getToken().first()
+        return pokemonDataSource.getPokemonDetail(pokemonId, token)
+    }
+
 }

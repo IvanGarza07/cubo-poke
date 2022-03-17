@@ -5,7 +5,6 @@ import com.cubo.app.data.server.utils.toPokemonList
 import com.cubo.data.params.PokemonListParams
 import com.cubo.data.response.ResponseCase
 import com.cubo.data.source.PokemonDataSource
-import com.cubo.domain.Pokemon
 
 class PokemonServer(private val pokemonService: PokemonService): PokemonDataSource {
 
@@ -20,6 +19,23 @@ class PokemonServer(private val pokemonService: PokemonService): PokemonDataSour
             200 -> {
                 response.body()?.let {
                     responseCase.pokemonList = it.toPokemonList()
+                }
+            }
+            401 -> responseCase.authorized = false
+        }
+        return responseCase
+    }
+
+    override suspend fun getPokemonDetail(pokemonId: String, token: String): ResponseCase.PokemonDetailResponse {
+        val response = pokemonService.getPokemonDetail(
+            ServerUtils.getApiServiceHeaders(true, token),
+            pokemonId
+        )
+        val responseCase = ResponseCase.PokemonDetailResponse()
+        when(response.code()) {
+            200 -> {
+                response.body()?.let {
+                    responseCase.pokemon = it.toPokemonList()[0]
                 }
             }
             401 -> responseCase.authorized = false

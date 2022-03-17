@@ -9,4 +9,9 @@ sealed class ResponseCase {
         var pokemonList: List<Pokemon> = arrayListOf()
     ): ResponseCase()
 
+    data class PokemonDetailResponse(
+        var authorized: Boolean = true,
+        var pokemon: Pokemon = Pokemon()
+    ): ResponseCase()
+
 }

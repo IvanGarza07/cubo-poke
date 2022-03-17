@@ -8,6 +8,7 @@
 package com.cubo.app.features.pokemonList.ui
 
 import com.cubo.app.R
+import com.cubo.app.features.pokemonList.epoxy.PokemonEpoxyEvent
 import com.cubo.app.features.pokemonList.epoxy.toPokemonModel
 import com.cubo.app.presentation.base.epoxy.BaseEpoxyClickEvent
 import com.cubo.app.presentation.base.viewmodel.BaseListViewModel
@@ -35,7 +36,9 @@ class PokemonListViewModel(
 
     override val event: (event: BaseEpoxyClickEvent) -> Unit = { event ->
         when (event) {
-
+            is PokemonEpoxyEvent.OpenPokemonDetail -> {
+                navigateTo(PokemonListFragmentDirections.actionListToDetail(event.pokemonId))
+            }
         }
     }
 

@@ -8,4 +8,5 @@ class PokemonUseCases(private val pokemonRepository: PokemonRepository) {
     suspend fun invokePokemonList(pokemonListParams: PokemonListParams) =
         pokemonRepository.getPokemonList(pokemonListParams)
 
+    suspend fun invokePokemonDetail(pokemonId: String) = pokemonRepository.getPokemonDetail(pokemonId)
 }

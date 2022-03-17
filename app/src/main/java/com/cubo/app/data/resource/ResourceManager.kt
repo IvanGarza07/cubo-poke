@@ -1,10 +1,3 @@
-/*
- *  Create by Ivan Garza on 1/14/22, 7:32 PM.
- *
- *  Copyright (c) year Ivan Garza.
- *  All rights reserved.
- */
-
 package com.cubo.app.data.resource
 
 import android.app.KeyguardManager

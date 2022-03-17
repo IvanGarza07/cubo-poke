@@ -8,4 +8,6 @@ interface PokemonDataSource {
 
     suspend fun getPokemonList(pokemonListParams: PokemonListParams): ResponseCase.PokemonListResponse
 
+    suspend fun getPokemonDetail(pokemonId: String, token: String): ResponseCase.PokemonDetailResponse
+
 }
