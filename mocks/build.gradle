@@ -1,0 +1,11 @@
+plugins {
+    id 'kotlin'
+    id 'org.jetbrains.kotlin.jvm'
+}
+
+dependencies {
+    implementation project(":data")
+    implementation project(":domain")
+
+    implementation kotlinLibs.values()
+}

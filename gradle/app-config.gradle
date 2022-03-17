@@ -1,0 +1,57 @@
+//##########################################################
+//                  VERSION PROPERTIES
+//##########################################################
+def versionPropsFile = rootProject.file("version.properties")
+def versionProps = new Properties()
+versionProps.load(new FileInputStream(versionPropsFile))
+
+def versionMajor = versionProps['major'].toInteger()
+def versionMinor = versionProps['minor'].toInteger()
+def versionPatch = versionProps['patch'].toInteger()
+
+//##########################################################
+//                  CURRENT GIT BRANCH NAME
+//##########################################################
+static def getCurrentBranch() {
+    def branch = ""
+    def proc = "git rev-parse --abbrev-ref HEAD".execute()
+    proc.in.eachLine { line -> branch = line.replace("/", "-") }
+    proc.err.eachLine { line -> println line }
+    proc.waitFor()
+    branch
+}
+
+//##########################################################
+//                      EXCLUDES
+//##########################################################
+def excludes = [
+        'META-INF/DEPENDENCIES.txt',
+        'META-INF/LICENSE.txt',
+        'META-INF/NOTICE.txt',
+        'META-INF/NOTICE',
+        'META-INF/LICENSE',
+        'META-INF/DEPENDENCIES',
+        'META-INF/notice.txt',
+        'META-INF/license.txt',
+        'META-INF/dependencies.txt',
+        'META-INF/LGPL2.1',
+        'META-INF/DEPENDENCIES.txt',
+        'META-INF/LICENSE.txt',
+        'META-INF/NOTICE.txt',
+        'META-INF/NOTICE',
+        'META-INF/LICENSE',
+        'META-INF/DEPENDENCIES',
+        'META-INF/notice.txt',
+        'META-INF/license.txt',
+        'META-INF/dependencies.txt',
+        'META-INF/LGPL2.1'
+]
+
+ext {
+
+    versionBuild = versionProps['build'].toInteger()
+    appVersion = "${versionMajor}.${versionMinor}.${versionPatch}"
+    currentBranch = getCurrentBranch()
+    appExcludes = excludes
+
+}

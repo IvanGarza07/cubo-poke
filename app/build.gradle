@@ -1,0 +1,109 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-android'
+    id 'kotlin-parcelize'
+    id 'kotlin-kapt'
+    id 'koin'
+    id 'androidx.navigation.safeargs.kotlin'
+    id 'com.squareup.wire'
+}
+
+android {
+    compileSdk 31
+    buildToolsVersion '31.0.0'
+
+    defaultConfig {
+        applicationId "com.cubo.app"
+        minSdk 23
+        targetSdk 31
+        versionCode versionBuild
+        versionName appVersion
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+        manifestPlaceholders = [onesignal_app_id               : "44ca49de-82e8-418a-9b34-e7393f5516b4",
+                                onesignal_google_project_number: "368450919463"]
+
+        ndkVersion "22.1.7171670"
+        ndk {
+            abiFilters 'x86', 'x86_64', 'armeabi-v7a', 'arm64-v8a'
+            debugSymbolLevel 'SYMBOL_TABLE'
+        }
+
+        def appName
+        if (project.hasProperty("applicationName")) {
+            appName = applicationName
+        } else {
+            appName = parent.name
+        }
+        archivesBaseName = "${appName}-V${versionName}-Code${versionCode}-B${currentBranch}"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    packagingOptions {
+        resources {
+            excludes += appExcludes
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+    kapt {
+        generateStubs = true
+        correctErrorTypes = true
+    }
+    buildFeatures {
+        dataBinding = true
+        viewBinding true
+    }
+    externalNativeBuild {
+        cmake {
+            path "CMakeLists.txt"
+        }
+    }
+    lint {
+        abortOnError false
+        baseline file('lint-baseline.xml')
+        checkReleaseBuilds false
+        ignore 'InvalidPackage'
+        textOutput file('stdout')
+        textReport true
+    }
+}
+
+dependencies {
+    implementation project(":data")
+    implementation project(":domain")
+    implementation project(":usecases")
+
+    implementation androidLibs.values()
+    implementation googleLibs.values()
+    implementation kotlinLibs.values()
+    implementation koinLibs.values()
+    implementation squareup.values()
+    implementation airbnb.values()
+    implementation libs.values()
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    debugImplementation debugImpLibs.values()
+    releaseImplementation releaseImpLibs.values()
+    kapt androidKaptLibs.values()
+
+    testImplementation testLibs.values()
+    testImplementation androidxTestLibs.values()
+    androidTestImplementation androidTestLibs.values()
+}
+
+wire {
+    kotlin {
+        android = true
+    }
+}

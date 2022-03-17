@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Cubo</string>
+    <string name="io_exception_error">No cuentas con conexión a internet</string>
+    <string name="general_exception_error">Ocurrió un error al tratar de ejecutar la acción</string>
+
+    <!-- LOGIN -->
+    <string name="USER_EMAIL">luis@gmail.com</string>
+    <string name="USER_PASS">secret</string>
+    <string name="login_email_label">Email</string>
+    <string name="login_email_hint">Escriba su correo electrónico</string>
+    <string name="login_pass_label">Contraseña</string>
+    <string name="login_pass_hint">Escriba su contraseña</string>
+    <string name="login_button">INICIAR SESIÓN</string>
+    <string name="login_error_message_1">Ingresa tu usuario y contraseña</string>
+    <string name="login_error_message_2">Usuario y/o contraseña incorrecto</string>
+
+    <!-- DIALOGS -->
+    <string name="dialog_title">Sesion expirada</string>
+    <string name="dialog_message">Tu sesion ha expirado! Inicia sesion nuevamente</string>
+    <string name="dialog_button_cancel">Cancelar</string>
+    <string name="dialog_button_accept">Aceptar</string>
+
+</resources>
