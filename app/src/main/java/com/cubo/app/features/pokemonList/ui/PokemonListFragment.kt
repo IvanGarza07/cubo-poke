@@ -2,6 +2,8 @@ package com.cubo.app.features.pokemonList.ui
 
 import android.os.Bundle
 import android.view.View
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.cubo.app.R
 import com.cubo.app.databinding.FragmentPokemonListBinding
 import com.cubo.app.features.dialogs.ConfirmActionDialog
@@ -20,6 +22,8 @@ import kotlin.reflect.KClass
 
 
 class PokemonListFragment : BaseListFragment<PokemonListViewModel, FragmentPokemonListBinding>() {
+
+    private var isLoading = false
 
     private val confirmActionDialog by inject<ConfirmActionDialog> {
         parametersOf(requireContext())
@@ -49,13 +53,16 @@ class PokemonListFragment : BaseListFragment<PokemonListViewModel, FragmentPokem
         liveDataObserver(viewModel.unauthorizedLiveData()) {
             showCloseSessionDialog()
         }
+        liveDataObserver(viewModel.pageLoadedLiveData()) {
+            isLoading = false
+        }
         observerAppEvents()
         requireActivity().initBackPressedToFinishHost(viewLifecycleOwner)
     }
 
     override fun intUI() {
         super.intUI()
-
+        initRecyclerListener()
     }
 
     private fun observerAppEvents() {
@@ -71,6 +78,22 @@ class PokemonListFragment : BaseListFragment<PokemonListViewModel, FragmentPokem
             }
             EventUtils.publish(AppEvent(EventEnum.CLEAR_EVENT))
         }
+    }
+
+    private fun initRecyclerListener() {
+        binding.epoxyRecyclerPokemon.recyclerView.addOnScrollListener(object :
+            RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val linearLayoutManager = recyclerView.layoutManager as LinearLayoutManager?
+                if (!isLoading &&
+                    linearLayoutManager != null &&
+                    linearLayoutManager.findLastCompletelyVisibleItemPosition() == viewModel.models.size - 1) {
+                    viewModel.loadNextPage()
+                    isLoading = true
+                }
+            }
+        })
     }
 
     private fun showCloseSessionDialog() {

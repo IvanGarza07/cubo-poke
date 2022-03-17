@@ -29,6 +29,8 @@ class PokemonListViewModel(
 
     private val unauthorizedLiveData: SingleLiveEvent<Boolean> = SingleLiveEvent()
 
+    private val pageLoadedLiveData: SingleLiveEvent<Boolean> = SingleLiveEvent()
+
     override val models = arrayListOf<ListModel>()
 
     override val event: (event: BaseEpoxyClickEvent) -> Unit = { event ->
@@ -53,6 +55,8 @@ class PokemonListViewModel(
 
     fun unauthorizedLiveData() = unauthorizedLiveData
 
+    fun pageLoadedLiveData() = pageLoadedLiveData
+
     fun initPokemonList() {
         models.clear()
         loadPokemonList()
@@ -71,6 +75,7 @@ class PokemonListViewModel(
                 models.add(it.toPokemonModel())
             }
             initList(models)
+            pageLoadedLiveData.postValue(true)
         } else
             unauthorizedLiveData.postValue(true)
     }
